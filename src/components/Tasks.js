@@ -5,8 +5,8 @@ export default class Tasks extends Component {
     super(props);
     this.state = {
       tasks: [
-        { id: 1, content: "Animal Crossing" },
-        { id: 2, content: "Super Smash Bros" }
+        { id: 1, content: "Practice algorithms" },
+        { id: 2, content: "Apply to 5 jobs today" }
       ]
     };
     this.deleteTask = this.deleteTask.bind(this);

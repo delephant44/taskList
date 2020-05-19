@@ -3,9 +3,6 @@ import React, { Component } from "react";
 export default class AddTask extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      content: ""
-    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addTask = this.addTask.bind(this);
