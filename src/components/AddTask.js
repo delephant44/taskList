@@ -1,34 +1,29 @@
 import React, { Component } from "react";
 
+//functional component uses methods, takes props, has state
+
 export default class AddTask extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      content: ""
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.addTask = this.addTask.bind(this);
-
   }
+
+  handleSubmit = event => {
+    event.preventDefault(); //don't refresh page
+    console.log("handleSubmit, State:", this.state);
+    //need a function to actually submit the info in Tasks component
+    this.props.addTask(this.state);
+  };
+
   handleChange = event => {
     this.setState({
       content: event.target.value
     });
   };
-
-  addTask = newTask => {
-    let newTasks = [...this.state.tasks, newTask];
-    this.setState({
-      tasks: newTasks
-    });
-  };
- 
-  handleSubmit = event => {
-    event.preventDefault(); //don't refresh page
-    console.log("handleSubmit, State:", this.state);
-    //need a function to actually submit the info in Tasks component
-    this.addTask(this.state);
-  };
-
-  
 
   render() {
     return (
@@ -39,6 +34,8 @@ export default class AddTask extends Component {
             type="text"
             name="Task"
             placeholder="PLACEHOLDER TEXT"
+            //will need value key here, lines up with this.state.content
+            value={this.state.content}
             onChange={this.handleChange}
           ></input>
         </form>

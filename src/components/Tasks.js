@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AddTask from "./AddTask";
 
 export default class Tasks extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export default class Tasks extends Component {
       ]
     };
     this.deleteTask = this.deleteTask.bind(this);
+    this.addTask = this.addTask.bind(this);
   }
 
   deleteTask = id => {
@@ -23,31 +25,51 @@ export default class Tasks extends Component {
     });
   };
 
-  render() {
-    //Q why can't I move deleteTask into a method above like I did with handleChange?
-    //A had to use es 6 formatting for the map method below
+  addTask = newTask => {
+    // newTask.id = Math.random();
+    let newTasks = [...this.state.tasks, newTask];
+    this.setState({
+      tasks: newTasks
+    });
+  };
 
-    return this.state.tasks.length ? ( //if the list has a length
-      this.state.tasks.map(currentTask => {
-        //show the content of the list
-        return (
-          <div key={currentTask.id}>
-            <span
-              onClick={() => {
-                this.deleteTask(currentTask.id);
-              }}
-            >
-              {currentTask.content}
-            </span>
-          </div>
-        );
-      })
-    ) : (
-      //if not, show below
+  render() {
+    //return one large div with 2 divs in it
+    //one for mapping tasks, one for passing props to other component
+    return (
       <div>
-        <p>You have no more tasks!</p>
+        <div>
+          {this.state.tasks.length ? ( //if the list has a length
+            this.state.tasks.map(currentTask => {
+              //show the content of the list
+              return (
+                <div key={currentTask.id}>
+                  <span
+                    onClick={() => {
+                      this.deleteTask(currentTask.id);
+                    }}
+                  >
+                    {currentTask.content}
+                  </span>
+                </div>
+              );
+            })
+          ) : (
+            //if not, show below
+            <div>
+              <p>You have no more tasks!</p>
+            </div>
+          )}
+        </div>
+        <div>
+          <div>
+            <AddTask addTask={this.addTask} />
+          </div>
+        </div>
       </div>
     );
+    //Q why can't I move deleteTask into a method above like I did with handleChange?
+    //A had to use es 6 formatting for the map method below
   }
 }
 
